@@ -1,0 +1,9 @@
+v 3
+d Sergio Correia. Board of Governors of the Federal Reserve System
+p setroot SETROOT - find the root path of a project and set it as a global variable
+
+* l word-to-show path-or-url [description]
+* t: Directories within site:
+* t path [description]
+* Packages:
+* p pkgname [description]

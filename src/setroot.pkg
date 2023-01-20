@@ -1,0 +1,18 @@
+v 3
+
+d SETROOT: find the root path of a project and set it as a global variable
+d
+d Author:
+d Sergio Correia. Board of Governors of the Federal Reserve System
+d
+d For more information, see https://github.com/sergiocorreia/stata-setroot
+d
+d KW: reproductible-research
+d
+d Requires: Stata version 12.1
+d
+d Distribution-Date: 20230120
+d
+
+f setroot.ado
+f setroot.sthlp
