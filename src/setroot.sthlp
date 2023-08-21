@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 0.1.0 20jan2023}{...}
+{* *! version 1.0.0 20aug2023}{...}
 {viewerjumpto "Syntax" "setroot##syntax"}{...}
 {viewerjumpto "Description" "setroot##description"}{...}
 {viewerjumpto "Options" "setroot##options"}{...}
@@ -75,7 +75,7 @@ the {browse "https://github.com/korenmiklos/here":Stata package} of the same nam
 {dlgtab:Main}
 
 {phang}
-{opt more} Will create additional variables, including $code, $data, $input, $output, $log, and $temp.
+{opt more} Will create additional variables, including $code, $data, $input, $output, $log, and $temp in the root folder, and $figures and $tables as subfolders of $output.
 These names are based on the suggested folder structure by {browse "https://www.stata.com/bookstore/data-analysis-using-stata/":Data Analysis Using Stata}.
 
 {phang}

@@ -1,6 +1,8 @@
-capture program drop setroot
+*! version 1.0.0 20aug2023
+
 program define setroot, rclass
-	syntax, [LOCal GLObal MORE SEArch(string) ADD(string) VERBOSE]
+	syntax, [LOCal GLObal MORE SEArch(string) ADD(string) VERBOSE QUIETly]
+
 
 	* Create placeholder files and exit
 	if ("`add'" != "") {
@@ -12,6 +14,7 @@ program define setroot, rclass
 	* Parse rest of syntax
 	if (`"`search'"' == "") loc search .here .project .git DESCRIPTION LICENSE README.md project.toml manifest.toml pyproject.toml
 
+	loc quietly = ("`quietly'" != "")
 	loc verbose = ("`verbose'" != "")
 	opts_exclusive "`local' `global'"
 	if ("`local'`global'" == "") loc global global // Default is global
@@ -27,12 +30,18 @@ program define setroot, rclass
 		global log
 		global input
 		global output
+		global figures
 	}
 
 	* Find placeholder files
 	loc found_path // empty
 	loc path `"`c(pwd)'"'
 	if ("`c(os)'" == "Windows") loc path = usubinstr(`"`path'"', "\", "/", .) // Windows files can't contain "/"
+	
+	* Display message as we start
+	if (!`quietly') di as text `"{bf:setroot} is searching for the root project path of "{res}`path'{txt}""'
+
+
 	while ("`path'" != "") {
 		if (`"`found_path'"' != "") continue, break
 		* Search
@@ -61,8 +70,8 @@ program define setroot, rclass
 
 	* Save local/globals
 	if (`"`found_path'"' != "") {
-		di as text `"updating `local'`global' variable "root" = {inp}"`found_path'" "'
-		if (`more') di as text `"also updating `local'`global' variables "code", "data", "temp", "log", "input", and "output""'
+		if (!`quietly') di as text `"root project path found; setting {res}"`local'`global' root = `found_path'" "'
+		*if (!`quietly' & `more') di as text `"also updating `local'`global' variables "code", "data", "temp", "log", "input", and "output""'
 		return local root "``root''"
 		if ("`local'" != "") {
 			c_local root "`found_path'"
@@ -73,6 +82,7 @@ program define setroot, rclass
 				c_local log				"`root'/log"
 				c_local input			"`root'/input"
 				c_local output			"`root'/output"
+				c_local figures			"`root'/output/figures"
 			}
 		}
 		else {
@@ -84,6 +94,7 @@ program define setroot, rclass
 				global log				"$root/log"
 				global input			"$root/input"
 				global output			"$root/output"
+				global figures			"$root/output/figures"
 			}
 		}
 	}
