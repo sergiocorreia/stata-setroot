@@ -1,6 +1,7 @@
 *! version 1.0.0 20aug2023
 
 program define setroot, rclass
+	version 14
 	syntax, [LOCal GLObal MORE SEArch(string) ADD(string) VERBOSE QUIETly]
 
 
